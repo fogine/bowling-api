@@ -1,0 +1,6 @@
+%syntax-version=1.0.0
+%project=bowling
+
+game 2019-02-17T13:32:55Z fogine <fogine@archlaptop> # adds game table
+player 2019-02-17T13:41:14Z fogine <fogine@archlaptop> # adds player table
+frame 2019-02-17T14:02:01Z fogine <fogine@archlaptop> # adds frame table

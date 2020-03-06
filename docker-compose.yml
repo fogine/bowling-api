@@ -1,0 +1,38 @@
+version: '3.4'
+x-env: &x-env
+  POSTGRES_DB       : ${POSTGRES_DB:-postgres}
+  POSTGRES_USER     : ${POSTGRES_USER:-postgres}
+  POSTGRES_PASSWORD : ${POSTGRES_PASSWORD}
+  POSTGRES_HOST     : ${POSTGRES_HOST:-postgres}
+services:
+  web:
+    build: .
+    ports:
+      - "3002:3002"
+      - "3004:3004"
+    environment:
+      <<: *x-env
+      PORT  : 3002
+      DOCS_PORT : 3004
+      NODE_ENV  : ${NODE_ENV:-development}
+      SQL_DEBUG : ${SQL_DEBUG:-false}
+      DEBUG:
+      VHOST: '127.0.0.1'
+      VHOST_PROTOCOL: 'http'
+    depends_on:
+      - postgres
+    volumes:
+      - type: bind
+        source: ${CONFIG:-./config/config.js}
+        target: /app/config/config.js
+    command:
+      >
+       /wait-for-it.sh postgres:5432 -- bash -c
+       'npm run migrate
+       && npm start'
+  postgres:
+    image: "postgres:11-alpine"
+    ports:
+      - "5432"
+    environment:
+      <<: *x-env
