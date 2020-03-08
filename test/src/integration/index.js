@@ -1,14 +1,14 @@
 const Promise         = require('bluebird');
 const chai            = require('chai');
+const chaiAsPromised  = require('chai-as-promised');
 const Service         = require('serviser');
 const path            = require('path');
 const config          = require('serviser-config');
 
 const ServiceSDK = require('../sdk.js');
 
-const expect = chai.expect;
+chai.use(chaiAsPromised);
 chai.should();
-
 
 Object.defineProperty(global, 'Promise', {
     configurable: false,

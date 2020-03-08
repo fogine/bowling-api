@@ -18,7 +18,6 @@ service.on('set-up', function() {
     require('./lib/app.js');
 });
 
-
 // serviser plugins
 //Autogeneration of Service API documentation
 require('serviser-doc');

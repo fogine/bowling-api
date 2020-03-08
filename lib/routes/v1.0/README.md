@@ -1,3 +1,4 @@
+
 #### Designed as `RESTFUL API`
 
 Request flow of a "game loop":  
