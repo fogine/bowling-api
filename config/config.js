@@ -37,7 +37,10 @@ module.exports = {
                 baseUrl: `${VHOST_PROTOCOL}://${VHOST}:${DOCS_PORT}`,
                 listen: DOCS_PORT,
                 title: "bowling-api-docs",
-                stopOnError: true
+                stopOnError: true,
+                readme: {
+                    'v1.0': 'lib/routes/v1.0/README.md'
+                }
             }
         }
     },
