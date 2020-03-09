@@ -23,13 +23,18 @@ describe('game loop', function() {
             case: 'finish with spare',
             shots: [8,2,7,3,3,4,10,2,8,10,10,8,0,10,8,2,9],
             score: 170
+        },
+        {
+            case: 'max score',
+            shots: [10,10,10,10,10,10,10,10,10,10,10,10],
+            score: 300
         }
     ].forEach(function(dataset) {
 
         it(`should calculate players total score of ${dataset.score} points (${dataset.case})`, function() {
             let remainingShotsPerFrame = 2;
 
-            return Promise.resolve(dataset.shots).bind(this).each(function(shotPoints) {
+            return Promise.resolve(dataset.shots).bind(this).each(function(shotPoints, index) {
                 let p;
 
                 if (remainingShotsPerFrame > 0) {
@@ -41,7 +46,7 @@ describe('game loop', function() {
                     p = this.sdk.setFrameThrowScore(this.frame_id, shotPoints);
                 }
 
-                if (remainingShotsPerFrame == 0) {
+                if (remainingShotsPerFrame == 0 && dataset.shots[index+1] !== undefined) {
                     remainingShotsPerFrame = 2;
                     return p.bind(this).then(function() {
                         return this.sdk.createGameFrame(this.game_id, {
@@ -55,7 +60,7 @@ describe('game loop', function() {
                 return p;
             }).then(function() {
                 return this.sdk.getPlayer(this.player_id);
-            }).then(function(response) {
+            }).should.be.fulfilled.then(function(response) {
                 response.data.should.be.eql({
                     id: this.player_id,
                     game_id: this.game_id,
@@ -71,6 +76,10 @@ describe('game loop', function() {
             case: 'finish with open frame',
             shots: [8,2,3,5,5,0,4,1,9,1,5,1,7,1,10,5,2,2,0,10]
         },
+        {
+            case: 'max score',
+            shots: [10,10,10,10,10,10,10,10,10,10,10,10,10]
+        }
         //TODO: edge case which currently fails - out of scope of this example
         //setFrameThrowScore needs to check whether a frame is the last in the game
         //and whether there is a second attempt remaining for the given frame.

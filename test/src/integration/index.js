@@ -38,9 +38,13 @@ describe('integration tests', function() {
     });
 
     after(function() {
-        return this.service.close().then(function() {
-            process.exit(0);
-        });
+        const service = this.service;
+        //give mocha time to write to stdout
+        setTimeout(function() {
+            return service.close().then(function() {
+                process.exit(0);
+            });
+        },0)
     });
 
     loadTestFiles();
@@ -59,6 +63,7 @@ describe('integration tests', function() {
         }, function(file, dir) {
             if (require.extensions[path.extname(file)]) {
                 let p = path.join(dir, file);
+                delete require.cache[require.resolve(p)];
                 return require(p);
             }
         });
