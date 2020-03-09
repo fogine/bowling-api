@@ -3,6 +3,12 @@ Service is deployed on heroku:
 - API: https://tenpin-bowling.herokuapp.com
 - API Documentation: https://tenpin-bowling-docs.herokuapp.com/
 
+Tech stack:  
+- Built with [serviser framework](https://github.com/lucid-services/serviser)
+- `postgres` and [knex](https://github.com/knex/knex) query builder
+- data models defined with [serviser-restfulness](https://github.com/lucid-services/serviser-restfulness)
+
+
 Application entrypoint: `./index.js`  
 
 ### How to run
