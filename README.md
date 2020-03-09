@@ -1,11 +1,16 @@
+
+Service is deployed on heroku:  
+- API: https://tenpin-bowling.herokuapp.com
+- API Documentation: https://tenpin-bowling-docs.herokuapp.com/
+
 Application entrypoint: `./index.js`  
 
 ### How to run
 
 #### localy
 
-Make sure service configuration is valid for your environment in config/config.js  
-You will need to set environment variable defined on top of the config file.  
+Make sure service configuration is valid for your environment in `config/config.js`  
+You will need to set environment variables defined on top of the config file.  
 
 Then you can start the service
 
